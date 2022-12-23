@@ -7,18 +7,29 @@ function Item(props) {
         <div>{props.item}</div>
         <div>₹ {props.rate}</div>
         <div className="qtyTab">
-          <button className="btn" onClick={() => props.changeAmount(props.id, -1)}>
+          <button
+            className="btn"
+            onClick={() => {
+              if (props.qty != 0) {
+                props.changeAmount(props.id, -1);
+              }
+            }}
+          >
             -
           </button>
           {props.qty}
-          <button className="btn" onClick={() => props.changeAmount(props.id, 1)}>
+          <button
+            className="btn"
+            onClick={() => {
+              props.changeAmount(props.id, 1);
+            }}
+          >
             +
           </button>
         </div>
       </div>
     </>
   );
-  return <div>hello ₹</div>;
 }
 
 export default Item;

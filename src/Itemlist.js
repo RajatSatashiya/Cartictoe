@@ -3,22 +3,26 @@ import Item from "./Item";
 
 function Itemlist() {
   const data = [
-    { item: "Noodles", rate: 30, id: 1, qty: 1 },
-    { item: "Biryani", rate: 90, id: 2, qty: 1 },
-    { item: "Chips", rate: 10, id: 3, qty: 1 },
+    { item: "Noodles", rate: 30, id: 1, qty: 0 },
+    { item: "Biryani", rate: 90, id: 2, qty: 0 },
+    { item: "Chips", rate: 10, id: 3, qty: 0 },
   ];
 
+  const [cart, setCart] = useState(data);
   const [amount, setAmount] = useState(0);
+
   const changeAmount = (id, sign) => {
-    const value = data.filter((item) => {
-      return item.id === id;
+    var value = cart.map((item) => {
+      if (item.id === id) {
+        setAmount((prev) => prev + item.rate * sign);
+        item.qty += sign;
+      }
+      return item;
     });
-    setAmount((prev) => {
-      return prev + value[0].rate * sign;
-    });
+    setCart(value);
   };
 
-  const displayItems = data.map((item, index) => (
+  const displayItems = cart.map((item, index) => (
     <Item key={index} {...item} changeAmount={changeAmount} />
   ));
 
